@@ -2,64 +2,72 @@
 
 namespace App\Http\Controllers\News;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\NewsRepository;
 
 class NewsContoller extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $newsRepository;
+
+    public function __construct(NewsRepository $newsRepository)
+    {
+        $this->newsRepository = $newsRepository;
+    }
+
     public function index()
     {
-        //
+        $news = $this->newsRepository->all();
+        return view('dashboard.app.news.index', compact('news'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function show($id)
+    {
+        $newsItem = $this->newsRepository->find($id);
+        return view('dashborad.app.news.show', compact('newsItem'));
+    }
+
     public function create()
     {
-        //
+        return view('dashborad.app.news.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            // Add any other validation rules for your model fields
+        ]);
+
+        $this->newsRepository->create($data);
+
+        return redirect()->route('dashborad.app.news.index')->with('success', 'News created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $newsItem = $this->newsRepository->find($id);
+        return view('dashborad.app.news.edit', compact('newsItem'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            // Add any other validation rules for your model fields
+        ]);
+
+        $this->newsRepository->update($id, $data);
+
+        return redirect()->route('news.index')->with('success', 'News updated successfully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $this->newsRepository->delete($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('news.index')->with('success', 'News deleted successfully');
     }
 }
