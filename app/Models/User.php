@@ -18,7 +18,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
     ];
@@ -42,4 +43,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    // Mutator for full name
+    public function getFullNameAttribute()
+    {
+        // Concatenate first_name and last_name and return it as full_name
+        return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
+    }
+
+
+
 }
