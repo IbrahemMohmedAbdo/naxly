@@ -29,7 +29,7 @@ class NewsContoller extends Controller
 
     public function create()
     {
-        return view('dashborad.app.news.create');
+        return view('dashboard.app.news.create');
     }
 
     public function store(Request $request)

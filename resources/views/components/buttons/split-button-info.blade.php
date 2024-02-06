@@ -2,5 +2,5 @@
     <span class="icon text-white-50">
         <i class="fas fa-info-circle"></i>
     </span>
-    <span class="text">Split Button Info</span>
+    <span class="text">{{ $title }}</span>
 </a>

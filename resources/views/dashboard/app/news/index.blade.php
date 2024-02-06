@@ -1,6 +1,6 @@
 @extends('dashboard.master')
 @section('content')
-<x-buttons.split-button-info :route="route('news.create')" />
+<x-buttons.split-button-info :route="route('news.create')" :title="'Create News'" />
 <hr/>
 <div class="card shadow mb-4" style="width: 100%;">
     <div class="card-header py-3">
