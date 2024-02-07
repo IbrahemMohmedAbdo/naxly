@@ -1,6 +1,6 @@
-°Project OverviewThis:
+°Project Overview:
 
- -project revolves around the implementation of the Repository design pattern and adheres to SOLID principles. Additionally, it utilizes components in Laravel for enhanced modularization.
+ -This project revolves around the implementation of the Repository design pattern and adheres to SOLID principles. Additionally, it utilizes components in Laravel for enhanced modularization.
 
 °Repository Design Pattern
 
