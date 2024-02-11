@@ -1,45 +1,54 @@
 @extends('dashboard.master')
 @section('content')
+
 <x-buttons.split-button-info :route="route('news.create')" :title="'Create News'" />
 <hr/>
+
 <div class="card shadow mb-4" style="width: 100%;">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
 
     </div>
+    @if(session('success'))
+    <div id="success-alert" class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
 
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
+                        <th>id</th>
+                        <th>Content</th>
+                        <th>Title</th>
                         <th>Start date</th>
-                        <th>Salary</th>
+                        <th>Date</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
-                {{-- <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                    </tr>
-                </tfoot> --}}
+
                 <tbody>
+                    @foreach ($news as $new )
                     <tr>
-                        <td>Tiger Nixon</td>
+                        <td>{{ $new->id }}</td>
+
+                        <td>{{ $new->content }}</td>
+                        <td>
+                            {{ $new->title }}
+                        </td>
                         <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
+                        <td>{{ $new->created_at->diffForHumans()  }}</td>
+
+                        <td>
+
+                        </td>
+
                     </tr>
+
+                    @endforeach
+
 
 
                 </tbody>
@@ -47,4 +56,14 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script>
+    // Auto-hide the success alert after 15 seconds
+    $(document).ready(function(){
+        setTimeout(function(){
+            $('#success-alert').fadeOut('slow');
+        }, 15000); // 15 seconds
+    });
+</script>
 @endsection

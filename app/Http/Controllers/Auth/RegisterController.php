@@ -13,6 +13,15 @@ class RegisterController extends Controller
 {
     //
 
+    public function index()
+    {
+        return view('dashboard.app.auth.register');
+    }
+
+
+
+
+
     public function register(RegisterUserRequest $request)
     {
          $data=$this->create($request);
@@ -37,7 +46,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
     }
- 
+
 
 
 

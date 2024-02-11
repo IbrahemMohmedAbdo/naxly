@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\News;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\NewsRepository;
@@ -18,7 +19,7 @@ class NewsContoller extends Controller
     public function index()
     {
         $news = $this->newsRepository->all();
-        return view('dashboard.app.news.index', compact('news'));
+             return view('dashboard.app.news.index', compact('news'));
     }
 
     public function show($id)
@@ -42,7 +43,7 @@ class NewsContoller extends Controller
 
         $this->newsRepository->create($data);
 
-        return redirect()->route('dashborad.app.news.index')->with('success', 'News created successfully');
+        return redirect()->route('news.index')->with('success', 'News created successfully');
     }
 
     public function edit($id)

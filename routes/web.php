@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgetPassword;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\News\NewsContoller;
 use App\Http\Controllers\Auth\LoginController;
@@ -19,7 +20,12 @@ use App\Http\Controllers\Dashboard\HomeController;
 Route::view('/', 'dashboard.app.auth.register');
 
 // Handle registration
+Route::get('/registerPage', [RegisterController::class, 'index'])->name('register_page');
+
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
+
+// Forget Password..
+Route::get('/forget/password',[ForgetPassword::class,'index'])->name('forget_password');
 
 // Redirect to the login page
 Route::get('/login', [LoginController::class, 'login'])->name('login');

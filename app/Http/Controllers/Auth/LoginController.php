@@ -17,9 +17,11 @@ class LoginController extends Controller
     public function loginStore(Request $request)
     {
         $credentials = $request->only('email', 'password');
+        $remember = $request->has('remember');
+
 
         // Attempt to authenticate the user
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $remember)) {
             // Authentication passed...
             return redirect()->intended(route('home'))->with('success', 'Login successful');
         }

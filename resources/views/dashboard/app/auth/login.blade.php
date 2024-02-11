@@ -2,6 +2,7 @@
 <html lang="en">
 
 @include('dashboard.layouts.head')
+
 <body class="bg-gradient-primary">
     <div class="container">
 
@@ -20,27 +21,37 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
                                     <form class="user" action="{{ route('loginStore') }}" method="POST">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                            name="email"
+                                            <input type="email" class="form-control form-control-user" name="email"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                            name="password"
-                                                id="exampleInputPassword" placeholder="Password">
+                                                name="password" id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
+                                                <input type="checkbox" class="custom-control-input" id="remember"
+                                                    name="remember">
+                                                <label class="custom-control-label" for="remember">Remember Me</label>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block"> Login</button>
+
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Login</button>
 
                                         <hr>
                                         <a href="index.html" class="btn btn-google btn-user btn-block">
@@ -52,10 +63,10 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                        <a class="small" href="{{ route('forget_password') }}">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
+                                        <a class="small" href="{{ route('register_page') }}">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>
@@ -68,8 +79,8 @@
         </div>
 
     </div>
-    
-   @include('dashboard.layouts.script')
+
+    @include('dashboard.layouts.script')
 
 </body>
 
